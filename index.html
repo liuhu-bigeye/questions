@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/default.css">
+	<link rel="stylesheet" href="static/css/isotope-docs.css" />
+
+	<script type="text/javascript" src="static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
+</head>
+<body>
+	<div class="htmleaf-container">
+		<header class="htmleaf-header">
+			<h1>Who wanna be the millionaire?<br/></h1>
+			<!-- <div class="htmleaf-links">
+				<span>{{username}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="/account/lab_hand/logout/"></a>					
+			</div>	 -->
+		</header>
+		<div class="htmleaf-content bgcolor-8" id="question_base">
+		</div>
+		<button id="Push">提交答案</button>
+	</div>
+	
+	<script type="text/javascript">
+	var qas = [{type:'radio', s:'中国有多少个民族？', q:['111','56','333','444'], a:1, c:-1},
+						{type:'radio', s:'世界有多少个民族？', q:['23','56','242','不知道'], a:3, c:-1}];
+	function init_qa(qas){
+		var qa_num = qas.length;
+		for(var qa_index=0;qa_index<qa_num;qa_index++){
+			var qa=qas[qa_index];
+			var q_num = qa.q.length;
+			var question_base = document.getElementById('question_base');
+			var question = document.createElement('p');
+			var label = document.createElement('label');
+			label.innerHTML = qa_index+'. '+qa.s;
+			question.appendChild(label);
+			question.appendChild(document.createElement('br'))
+			for(var i=0;i<q_num;i++){
+				var radio = document.createElement('input');
+				radio.type = "radio";
+				radio.name = "question_"+qa_index;
+				radio.value = i;
+				radio.id = "chosen_"+i;
+				if(i==qa.c)
+					radio.checked = "checked";
+				//on select
+				radio.onclick = function(){
+					qa_idx = this.name.split('_')[1];
+					chosen_idx = this.id.split('_')[1];
+					qas[qa_idx].c = chosen_idx;
+				}
+				question.appendChild(radio);
+				var label = document.createElement('label');
+				label.for = qa.q[i];
+				label.id = 'choose_'+qa_index+'_'+i;
+				label.innerHTML = "&nbsp"+qa.q[i]+"&nbsp&nbsp";
+				question.appendChild(label);
+			}
+			question_base.appendChild(question);
+		}
+	}
+	init_qa(qas);
+	document.getElementById('Push').onclick = function(){
+		//check true false
+		var qa_num = qas.length;
+		for(var qa_index=0;qa_index<qa_num;qa_index++){
+			var a = qas[qa_index].a;
+			document.getElementById('choose_'+qa_index+'_'+a).style.color = 'red';
+		}
+	}
+	</script>
+</body>
+</html>
