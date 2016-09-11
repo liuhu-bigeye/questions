@@ -14,7 +14,7 @@
 <body>
 	<div class="htmleaf-container">
 		<header class="htmleaf-header">
-			<h1>Who wanna be the millionaire?<br/></h1>
+			<h1>试试你有多了解我<br/></h1>
 			<!-- <div class="htmleaf-links">
 				<span>{{username}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
 				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="/account/lab_hand/logout/"></a>					
@@ -26,8 +26,10 @@
 	</div>
 	
 	<script type="text/javascript">
-	var qas = [{type:'radio', s:'中国有多少个民族？', q:['111','56','333','444'], a:1, c:-1},
-						{type:'radio', s:'世界有多少个民族？', q:['23','56','242','不知道'], a:3, c:-1}];
+	var qas = [{type:'radio', s:'我们的纪念日是哪一天？', q:['9月1日','11月11日','12月8日','8月31日'], a:1, c:-1},
+{type:'radio', s:'我平常早上几点起？', q:['06:00','07:00','08:00','09:00'], a:3, c:-1},
+{type:'radio', s:'我平均每天在实验室呆到几点？', q:['18:00','19:00','20:00','21:00'], a:2, c:-1},
+    {type:'radio', s:'我对于吃快餐的看法是？', q:['味道美极了，多多益善','好羞愧，我的腹肌要没了'], a:1, c:-1}];
 	function init_qa(qas){
 		var qa_num = qas.length;
 		for(var qa_index=0;qa_index<qa_num;qa_index++){
@@ -63,14 +65,21 @@
 			question_base.appendChild(question);
 		}
 	}
-	init_qa(qas);
+init_qa(qas);
+var not_clicked=true;
 	document.getElementById('Push').onclick = function(){
-		//check true false
+        //check true false
+        if(not_clicked==false)
+            return;
+        not_clicked=false;
 		var qa_num = qas.length;
 		for(var qa_index=0;qa_index<qa_num;qa_index++){
 			var a = qas[qa_index].a;
 			document.getElementById('choose_'+qa_index+'_'+a).style.color = 'red';
-		}
+        }
+        var answer = document.createElement('h3');
+        answer.innerHTML = '老婆我爱你~';
+        document.getElementById('question_base').appendChild(answer);
 	}
 	</script>
 </body>
